@@ -14,9 +14,26 @@ import hello.core.member.MemoryMemberRepository;
  */
 public class OrderServiceImpl implements OrderService{
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+//    private final MemberRepository memberRepository = new MemoryMemberRepository();
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
+
+    /**
+     * Repository에 관한 정보는 AppConfig에서 받아온다. => 생성자 주입
+     */
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    /**
+     *
+     * @param memberRepository
+     * @param discountPolicy -> 어떤 객체가 들어올지 종속되어 있지않다. DIP를 잘 지킴.
+     */
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         //1. 회원정보 조회
