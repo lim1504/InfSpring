@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 실제 동작에 필요한 구현 객체를 생성
  * 객체의 생성과 연결은 AppConfig가 해결.
+ *
+ * 팩토리 메소드를 통해서 제공해주는 방식
+ * 외부에서 메소드를 호출해서 제공하는 것을 뜻함.
+ * 펙토리 메소드 패턴 참조
  */
 @Configuration
 public class AppConfig {
