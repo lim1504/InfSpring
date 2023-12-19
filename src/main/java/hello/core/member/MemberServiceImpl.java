@@ -1,5 +1,9 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService{
 
     /**
@@ -12,6 +16,13 @@ public class MemberServiceImpl implements MemberService{
      * 의존관계를 외부에서 주입해준다. (AppConfig) => DI (외존관계 주입)
      */
     private final MemberRepository memberRepository;
+
+    /**
+     * 스프링이 빈의 의존관계를 자동으로 설정해준다.
+     * ac.getBean(MemberRepository.class) 처럼 작동.
+     * @param memberRepository
+     */
+    @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -24,5 +35,10 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member findMember(Long MemberId) {
         return memberRepository.findById(MemberId);
+    }
+
+    //Test
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
     }
 }

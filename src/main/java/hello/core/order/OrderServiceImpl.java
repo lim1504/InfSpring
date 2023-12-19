@@ -6,12 +6,15 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 할인에 대한 정보는 OrderServiceImpl은 필요없다. 결과만 도출하면됨
  * 할인 정보는 -> DiscountPolicy가 책임
  * 단일책임 원칙을 잘 지켰다고 볼 수 있다.
  */
+@Component
 public class OrderServiceImpl implements OrderService{
 
 
@@ -29,6 +32,7 @@ public class OrderServiceImpl implements OrderService{
      * @param memberRepository
      * @param discountPolicy -> 어떤 객체가 들어올지 종속되어 있지않다. DIP를 잘 지킴.
      */
+    @Autowired // 스프링 빈의 여러 의존관계를 설정한다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
@@ -43,5 +47,10 @@ public class OrderServiceImpl implements OrderService{
         int discountPrice = discountPolicy.discount(member, itemPrice);
         //3. 주문정보 리턴
         return new Order(memberId, itemName, itemPrice, discountPrice);
+    }
+
+    //Test
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
     }
 }

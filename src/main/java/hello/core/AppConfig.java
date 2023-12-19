@@ -26,12 +26,11 @@ public class AppConfig {
      * 코드 리펙토링 과정
      * 실제 Repository의 구현체가 바뀌면 이 부분들만 변경되면 된다.
      *
-     */
-    /**
      * @Bean 으로 DI 컨테이너에 객체를 등록
      */
     @Bean
     public MemoryMemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
@@ -47,11 +46,13 @@ public class AppConfig {
      */
     @Bean
     public MemberService memberService () {
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public OrderService orderService () {
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
