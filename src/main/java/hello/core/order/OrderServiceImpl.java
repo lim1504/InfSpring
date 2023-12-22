@@ -28,12 +28,22 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy;
 
     /**
+     * 직접 주입 방법 => 지양해라. 테스트에 큰 어려움이 있음
+     */
+//    @Autowired
+//    private MemberRepository memberRepository;
+//    @Autowired
+//    private DiscountPolicy discountPolicy;
+
+    /**
      *
      * @param memberRepository
      * @param discountPolicy -> 어떤 객체가 들어올지 종속되어 있지않다. DIP를 잘 지킴.
      */
-    @Autowired // 스프링 빈의 여러 의존관계를 설정한다.
+    //@Autowired // 스프링 빈의 여러 의존관계를 설정한다. (생성자가 하나인 경우엔 @Autowired 생략 가능)
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        System.out.println("memberRepository = " + memberRepository);
+        System.out.println("discountPolicy = " + discountPolicy);
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

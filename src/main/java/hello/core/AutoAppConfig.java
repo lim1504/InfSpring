@@ -1,7 +1,11 @@
 package hello.core;
 
+import hello.core.discount.DiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import hello.core.order.OrderService;
+import hello.core.order.OrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +25,17 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
+    /**
+     * 독립적인 테스트 목적인 경우엔 직접 주입을 활용해도 된다.
+     */
+//    @Autowired
+//    MemberRepository memberRepository;
+//    @Autowired
+//    DiscountPolicy discountPolicy;
+//    @Bean
+//    OrderService orderService() {
+//        return new OrderServiceImpl(memberRepository, discountPolicy);
+//    }
     @Bean(name = "memoryMemberRepository")
     MemberRepository memberRepository() {
         return new MemoryMemberRepository();
